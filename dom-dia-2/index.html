@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Calculadora Aesthetic</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+
+    <section class="calculator" role="region" aria-label="Calculadora" id="calculator">
+      <div class="display" aria-live="polite">
+        <div id="history" class="history" aria-hidden="false">—</div>
+        <div id="display" class="value" role="textbox" aria-label="Pantalla de la calculadora">0</div>
+      </div>
+
+      <div class="buttons" role="group" aria-label="Teclado de la calculadora">
+        <button class="btn func" data-key="Escape" aria-label="Limpiar">C</button>
+        <button class="btn func" data-key="Backspace" aria-label="Borrar">←</button>
+        <button class="btn func" data-key="%" aria-label="Módulo">%</button>
+        <button class="btn op" data-key="/" aria-label="Dividir">÷</button>
+
+        <button class="btn num" data-key="7">7</button>
+        <button class="btn num" data-key="8">8</button>
+        <button class="btn num" data-key="9">9</button>
+        <button class="btn op" data-key="*" aria-label="Multiplicar">×</button>
+
+        <button class="btn num" data-key="4">4</button>
+        <button class="btn num" data-key="5">5</button>
+        <button class="btn num" data-key="6">6</button>
+        <button class="btn op" data-key="-" aria-label="Restar">−</button>
+
+        <button class="btn num" data-key="1">1</button>
+        <button class="btn num" data-key="2">2</button>
+        <button class="btn num" data-key="3">3</button>
+        <button class="btn op primary" data-key="+" aria-label="Sumar">+</button>
+
+        <button class="btn num zero" data-key="0">0</button>
+        <button class="btn num" data-key=".">.</button>
+        <button class="btn func" data-key="Enter" aria-label="Igual">=</button>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <small>Soporta teclado: 0-9 . + - * / Enter Backspace Escape =</small>
+    </footer>
+  </main>
+
+  <!-- Conversor de temperaturas -->
+  <section class="temp-converter" id="tempConverter" style="max-width:420px;margin:18px auto;padding:12px;">
+    <h2 style="margin:0 0 8px 0;color:var(--primary);">Conversor de temperaturas</h2>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+      <label for="celsiusInput" style="font-size:0.95rem;color:var(--muted);min-width:120px;">Celsius (°C):</label>
+      <input id="celsiusInput" type="number" placeholder="Ej: 25" style="padding:8px;border-radius:8px;border:0;box-shadow:0 4px 10px rgba(10,20,40,0.04);width:140px;" aria-label="Valor en Celsius">
+      <button id="btnConvertTemp" class="btn" style="padding:8px 12px;border-radius:8px;">Convertir</button>
+    </div>
+    <div style="margin-top:10px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+      <div style="color:var(--muted);">Fahrenheit (°F): <strong id="outFahrenheit">—</strong></div>
+      <div style="color:var(--muted);">Kelvin (K): <strong id="outKelvin">—</strong></div>
+    </div>
+    <div style="margin-top:8px;color:var(--muted);font-size:0.9rem;">Puedes usar la consola: <code>convertFromCelsius(25)</code></div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro al DOM</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .caja {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        /* Estilos aesthetic para la calculadora */
+        :root{
+            --bg:#f6f8fb;
+            --card:#ffffff;
+            --muted:#6b7a86;
+            --accent-1:#c6f6e3; /* pastel green */
+            --accent-2:#cfe3ff; /* pastel blue */
+            --primary:#3b6ea5;
+            --glass: rgba(255,255,255,0.6);
+        }
+        body{ background: linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%); color: #123; }
+        #calculadora{
+            margin-top:20px;
+            background: linear-gradient(135deg,var(--card),var(--glass));
+            border-radius:12px;
+            padding:18px;
+            box-shadow: 0 6px 18px rgba(16,24,40,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+            display:inline-block;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+        }
+        #calculadora h2{ margin:0 0 10px 0; font-size:1.05rem; color:var(--primary); }
+        #calculadora input[type="number"]{
+            border: none;
+            background: linear-gradient(180deg, #fff, #fbfdff);
+            padding:8px 10px;
+            margin-right:8px;
+            border-radius:8px;
+            box-shadow: 0 2px 6px rgba(10,20,40,0.06);
+            outline: none;
+            width:110px;
+            color: #123;
+        }
+        #calculadora input[type="number"]::placeholder{ color: var(--muted); }
+        #calculadora div.buttons{ margin-top:10px; }
+        #calculadora button{
+            border: none;
+            background: linear-gradient(180deg,var(--accent-2),var(--accent-1));
+            padding:8px 12px;
+            margin-right:6px;
+            border-radius:10px;
+            cursor:pointer;
+            font-weight:600;
+            color:#0b2b44;
+            box-shadow: 0 6px 12px rgba(59,110,165,0.08);
+            transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+        }
+        #calculadora button:hover{ transform: translateY(-2px); box-shadow: 0 10px 20px rgba(59,110,165,0.12); }
+        #calculadora button:active{ transform: translateY(0); filter: brightness(.98); }
+        #calcResultado{
+            display:inline-block;
+            background: linear-gradient(90deg, rgba(255,255,255,0.8), rgba(250,250,255,0.7));
+            padding:6px 10px;
+            border-radius:8px;
+            margin-left:8px;
+            min-width:60px;
+            text-align:center;
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.02);
+            color: var(--primary);
+            font-weight:700;
+        }
+        @media (max-width:420px){
+            #calculadora{ width:100%; }
+            #calculadora input[type="number"]{ width:45%; margin-bottom:8px; }
+            #calculadora button{ padding:8px 8px; margin-bottom:6px; }
+        }
+        h1{
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .dom-section{
+            max-width: 500px;
+            margin: 20px auto;
+            background: linear-gradient(135deg, var(--card), var(--glass));
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 6px 18px rgba(16,24,40,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+        }
+        .dom-section .caja{
+            background: linear-gradient(135deg, var(--accent-2), var(--accent-1));
+            box-shadow: 0 4px 12px rgba(59,110,165,0.12);
+            border-radius: 12px;
+            margin: 15px 0;
+            transition: transform .12s ease, box-shadow .12s ease;
+        }
+        .dom-section .caja:hover{
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59,110,165,0.15);
+        }
+        .dom-section button{
+            border: none;
+            background: linear-gradient(180deg, var(--accent-2), var(--accent-1));
+            padding: 10px 16px;
+            margin: 8px 8px 8px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #0b2b44;
+            box-shadow: 0 6px 12px rgba(59,110,165,0.08);
+            transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+        }
+        .dom-section button:hover{
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59,110,165,0.12);
+        }
+        .dom-section button:active{
+            transform: translateY(0);
+            filter: brightness(.98);
+        }
+    </style>
+</head>
+<body>
+    <h1>Manipulando el DOM con JS</h1>
+    
+    <div class="dom-section">
+        <div id="miCaja" class="caja">Caja</div>
+        
+        <button id="btnCambiarColor">Cambiar Color</button>
+        <button id="btnCambiarTexto">Cambiar Texto</button>
+    </div>
+
+
+    <script src="dom.js"></script>
+</body>
+</html>

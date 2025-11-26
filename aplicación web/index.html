@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador de Texto</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Analizador de Texto</h1>
+            <p class="subtitle">Analiza tu texto en tiempo real</p>
+        </header>
+
+        <main>
+            <div class="editor-section">
+                <label for="textarea">Escribe tu texto aquí:</label>
+                <textarea 
+                    id="textarea" 
+                    class="textarea" 
+                    placeholder="Pega o escribe tu texto aquí para comenzar el análisis..."
+                    spellcheck="true">
+                </textarea>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon">📝</div>
+                    <div class="stat-content">
+                        <h3>Caracteres</h3>
+                        <p class="stat-value" id="charactersCount">0</p>
+                        <span class="stat-label">(incluyendo espacios)</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🔤</div>
+                    <div class="stat-content">
+                        <h3>Caracteres sin espacios</h3>
+                        <p class="stat-value" id="charactersNoSpacesCount">0</p>
+                        <span class="stat-label">(solo texto)</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">💬</div>
+                    <div class="stat-content">
+                        <h3>Palabras</h3>
+                        <p class="stat-value" id="wordsCount">0</p>
+                        <span class="stat-label">(separadas por espacios)</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">✍️</div>
+                    <div class="stat-content">
+                        <h3>Oraciones</h3>
+                        <p class="stat-value" id="sentencesCount">0</p>
+                        <span class="stat-label">(. ! ?)</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-content">
+                        <h3>Tiempo de lectura</h3>
+                        <p class="stat-value" id="readingTime">0</p>
+                        <span class="stat-label">min (200 pal/min)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button id="clearBtn" class="btn btn-clear">🗑️ Limpiar</button>
+                <button id="copyBtn" class="btn btn-copy">📋 Copiar estadísticas</button>
+            </div>
+
+            <div id="notification" class="notification"></div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
